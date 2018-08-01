@@ -1,0 +1,30 @@
+{
+  "name": "wallstreet_buyin",
+  "version": "1.0.0",
+  "description": "Downloading stock data and compiling charts and daily, weekly and monthly delta trying different compulations for buy signals",
+  "main": "index.js",
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "puppeteer": "^1.6.0-post"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com:bclincy/wallstreetPuppet.git"
+  },
+  "keywords": [
+    "market",
+    "reporting",
+    "stock",
+    "and",
+    "data",
+    "aggration",
+    "brian",
+    "clincy"
+  ],
+  "author": "Brian Clincy",
+  "license": "MIT"
+}
