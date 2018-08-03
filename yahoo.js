@@ -8,11 +8,22 @@ const fs = require('fs-extra');
             const browser = await puppeteer.launch({headless: true});
             const page = await browser.newPage();
             await page.goto(url, {waitUntil: 'domcontentloaded'});
-            await page.waitForSelector(selector)
-
-            return page.content();
+            await page.waitForSelector(selector);
+            const data = await page.$$(selector);
+            const link = await page.$x('//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a');
+            const linkData = await page.evaluate( data => data.outerText, data); 
+            console.log(linkData);
+            // return page.content();
+            browser.close;
+            return data[0].outerText;
         }
-        
+
+        async function downLoadCsv (downloadUrl) {
+            await page.evaluate(async downloadUrl => {
+                const fetchResp = await fetch(downloadCsvUrl, {credentials: 'include'});
+                return await fetchResp.text();
+              }, downloadUrl);
+        }
         console.log(await getData('https://finance.yahoo.com/quote/AAPL/history?p=AAPL', '#Col1-1-HistoricalDataTable-Proxy > section > div > table' ));
         // const browser = await puppeteer.launch({headless: true});
         // const page = await browser.newPage();
@@ -20,7 +31,8 @@ const fs = require('fs-extra');
 
         // await page.goto('https://experts.shopify.com');
         // await page.waitForSelector('.section');
-    } catch (error) {
+    } catch (e) {
         console.log('our error', e)
     }
+    await console.log()
 })();
