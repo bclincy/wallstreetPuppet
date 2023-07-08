@@ -7,6 +7,11 @@ const fs = require('fs-extra');
         async function getData (url, selector){
             const browser = await puppeteer.launch({headless: true});
             const page = await browser.newPage();
+            page.setRequestInterception(true);
+            page.on('request', async request => {
+                console.log(await request.url())
+                request.continue();
+            });
             await page.goto(url, {waitUntil: 'domcontentloaded'});
             await page.waitForSelector(selector)
 
